@@ -34,7 +34,7 @@ export const createShortLink = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).send({ error: "erro ao encurtar link" });
+    res.status(500).send({ message: "erro ao encurtar link" });
   }
 };
 
@@ -45,7 +45,7 @@ export const getOriginalLink = async (req, res) => {
     const link = await Link.findOne({ shortUrl });
 
     if (!link) {
-      return res.status(404).send({ error: "link não encontrado" });
+      return res.status(404).send({ message: "link não encontrado" });
     }
 
     if (!link.security) {
@@ -75,15 +75,15 @@ export const getInfoLink = async (req, res) => {
     console.log(getLink);
 
     if (!getLink) {
-      return res.status(404).send({ error: "Não existe esse link" });
+      return res.status(404).send({ message: "Não existe esse link" });
     }
 
     if (getLink.password && !password) {
-      return res.status(401).send({ error: "É necessário digitar uma senha" });
+      return res.status(401).send({ message: "É necessário digitar uma senha" });
     }
 
     if (getLink.password && getLink.password !== password) {
-      return res.status(403).send({ error: "Senha incorreta" });
+      return res.status(403).send({ message: "Senha incorreta" });
     }
 
     return res.status(200).send({
@@ -95,22 +95,22 @@ export const getInfoLink = async (req, res) => {
   } catch (err) {
     console.error(err);
 
-    return res.status(500).send({ error: "Erro no servidor", details: err });
+    return res.status(500).send({ message: "Erro no servidor", details: err });
   }
 };
 
 export const passwordLink = async (req,res) => {
-    const { _id, password } = req.body;
+    const { shortUrl, password } = req.body;
 
   try {
-    const getlink = await Link.findOne({ shortUrl: _id });
+    const getlink = await Link.findOne({ shortUrl });
 
     if (!getlink) {
-      return res.status(404).send({ error: "Não existe esse link" });
+      return res.status(404).send({ message: "Não existe esse link" });
     }
 
     if (getlink.password && getlink.password !== password) {
-      return res.status(403).send({ error: "Senha incorreta" });
+      return res.status(403).send({ message: "Senha incorreta" });
     }
 
     if(!getlink.password) {
@@ -122,9 +122,13 @@ export const passwordLink = async (req,res) => {
       await getlink.save();
     }
 
-    res.send(getlink);
+    res.send({
+      shortUrl: getlink.shortUrl,
+      url: getlink.url,
+      security: getlink.security,
+    });
   } catch (err) {
     console.error(err);
-    return res.status(500).send({ error: "Erro no servidor", details: err });
+    return res.status(500).send({ message: "Erro no servidor", details: err });
   }
 }
