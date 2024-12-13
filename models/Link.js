@@ -18,7 +18,7 @@ const LinkSchema = new Schema({
         default: 0
     },
     password: {
-        type: Number,
+        type: String,
         default: null
     },
     security: {
