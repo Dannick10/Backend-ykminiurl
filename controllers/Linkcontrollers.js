@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "../models/Link.js";
 import validator from "validator";
 import generateShortUrl from "../utils/generateShortUrl.js";
@@ -15,19 +17,18 @@ export const createShortLink = async (req, res) => {
   }
 
   const shortUrl = generateShortUrl();
-  
-  
+
   try {
     const hash = password ? await hashPassword(password) : password;
-    console.log("password original:" + password)
-    console.log("password criptografado:" + hash)
+    console.log("password original:" + password);
+    console.log("password criptografado:" + hash);
     const newLink = {
       url,
       shortUrl,
       password: hash,
       security,
     };
-    
+
     const link = new Link(newLink);
 
     await link.save();
@@ -76,19 +77,22 @@ export const getInfoLink = async (req, res) => {
 
   try {
     const getLink = await Link.findOne({ shortUrl: shortUrl });
-    console.log(getLink);
 
     if (!getLink) {
       return res.status(404).send({ message: "Não existe esse link" });
     }
 
     if (getLink.password && !password) {
-      return res.status(401).send({ message: "É necessário digitar uma senha" });
+      return res
+        .status(401)
+        .send({ message: "É necessário digitar uma senha" });
     }
 
     if (getLink.password && getLink.password !== password) {
       return res.status(403).send({ message: "Senha incorreta" });
+
     }
+
 
     return res.status(200).send({
       originalUrl: getLink.url,
@@ -96,6 +100,7 @@ export const getInfoLink = async (req, res) => {
       clicks: getLink.clicks,
       createdAt: getLink.createdAt,
     });
+
   } catch (err) {
     console.error(err);
 
@@ -103,25 +108,23 @@ export const getInfoLink = async (req, res) => {
   }
 };
 
-export const passwordLink = async (req,res) => {
-    const { shortUrl, password } = req.body;
+export const passwordLink = async (req, res) => {
+  const { shortUrl, password } = req.body;
 
   try {
     const getlink = await Link.findOne({ shortUrl });
-    
+
     if (!getlink) {
       return res.status(404).send({ message: "Não existe esse link" });
     }
 
-    if(!getlink.password) {
-      return res.status(404).send({error: "esse link não possui senha"})
-    }
-    const hash = await comparePassword(password,getlink.password)
+    if (getlink.password) {
+      const hash = await comparePassword(password, getlink.password);
 
-    if(!hash) {
-      return res.status(403).send({ message: "Senha incorreta" });
+      if (!hash) {
+        return res.status(403).send({ message: "Senha incorreta" });
+      }
     }
-
 
     if (getlink.password) {
       getlink.clicks += 1;
@@ -137,4 +140,4 @@ export const passwordLink = async (req,res) => {
     console.error(err);
     return res.status(500).send({ message: "Erro no servidor", details: err });
   }
-}
+};
