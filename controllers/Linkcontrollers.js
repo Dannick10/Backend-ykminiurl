@@ -68,7 +68,7 @@ export const getOriginalLink = async (req, res) => {
       security: link.security,
     });
   } catch (err) {
-    res.status(500).send({ error: "Erro ao redirecionar para a URL" });
+    res.status(500).send({ message: "Erro ao redirecionar para a URL" });
   }
 };
 
@@ -88,11 +88,13 @@ export const getInfoLink = async (req, res) => {
         .send({ message: "É necessário digitar uma senha" });
     }
 
-    if (getLink.password && getLink.password !== password) {
-      return res.status(403).send({ message: "Senha incorreta" });
+    if (getLink.password) {
+      const hash = await comparePassword(password, getLink.password);
 
+      if (!hash) {
+        return res.status(403).send({ message: "Senha incorreta" });
+      }
     }
-
 
     return res.status(200).send({
       originalUrl: getLink.url,
