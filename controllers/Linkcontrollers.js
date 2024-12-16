@@ -20,8 +20,6 @@ export const createShortLink = async (req, res) => {
 
   try {
     const hash = password ? await hashPassword(password) : password;
-    console.log("password original:" + password);
-    console.log("password criptografado:" + hash);
     const newLink = {
       url,
       shortUrl,
@@ -38,7 +36,6 @@ export const createShortLink = async (req, res) => {
       shortUrl: shortUrl,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).send({ message: "erro ao encurtar link" });
   }
 };
@@ -104,8 +101,6 @@ export const getInfoLink = async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err);
-
     return res.status(500).send({ message: "Erro no servidor", details: err });
   }
 };
@@ -139,7 +134,6 @@ export const passwordLink = async (req, res) => {
       security: getlink.security,
     });
   } catch (err) {
-    console.error(err);
     return res.status(500).send({ message: "Erro no servidor", details: err });
   }
 };
