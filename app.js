@@ -3,8 +3,9 @@ import linkRoutes from "./routes/LinkRoutes.js";
 import cors from "cors"
 import ConnectDB from "./db/mongooseConnect.js";
 import dotenv from "dotenv"
+import fs from 'fs';
 import swaggerUi from 'swagger-ui-express';
-import swaggerFile from './swagger-output.json' assert { type: 'json' };
+const swaggerFile = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 
 const app = express();
 
