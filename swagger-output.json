@@ -1,0 +1,148 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ykminiurl",
+    "version": "1.0.0",
+    "description": "Documentação da ykminiurl"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor Local"
+    }
+  ],
+  "paths": {
+    "/shortlink": {
+      "post": {
+        "description": "encurtar um link",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "URL não é valida"
+          },
+          "500": {
+            "description": "erro ao encurtar link"
+          }
+        }
+      }
+    },
+    "/getlink/{getshortlink}": {
+      "get": {
+        "description": "rederecionar um link encurtado",
+        "parameters": [
+          {
+            "name": "getshortlink",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "link não encontrado"
+          },
+          "500": {
+            "description": "Erro ao redirecionar para a URL"
+          }
+        }
+      }
+    },
+    "/info": {
+      "post": {
+        "description": "pegar informações do link",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "shortUrl": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "É necessário digitar uma senha"
+          },
+          "403": {
+            "description": "Senha incorreta"
+          },
+          "404": {
+            "description": "Não existe esse link"
+          },
+          "500": {
+            "description": "Erro ao redirecionar para a URL"
+          }
+        }
+      }
+    },
+    "/password": {
+      "post": {
+        "description": "autorizar link com senha",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "shortUrl": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Senha incorreta"
+          },
+          "404": {
+            "description": "Não existe esse link"
+          },
+          "500": {
+            "description": "Erro no servidor"
+          }
+        }
+      }
+    }
+  }
+}
