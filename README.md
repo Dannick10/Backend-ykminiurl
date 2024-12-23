@@ -27,13 +27,26 @@ Acesse o Repositorio: [YKMINIURL Repositorio Frontend](https://github.com/Dannic
 
 Confira o design do projeto no Figma: [Figma do YKMiniURL](https://www.figma.com/)
 
-## 🛠️ **Tecnologias Utilizadas**  
+### 🛠️ **Tecnologias Utilizadas**  
+
+#### Frontend  
+- **Next.js**  
+- **TypeScript**  
+- **TailwindCSS**  
+
+#### Backend  
 - **Node.js**  
 - **Express.js**  
 - **MongoDB**  
-- **Bcrypt** (criptografia de senhas)  
-- **CORS** (controle de acesso cross-origin)  
+- **Bcrypt**  
+- **CORS**
+- **Swagger**
 
+### UI/UX
+- **figma**
+- **photoshop**
+
+---
 ---
 
 ## 📚 **Endpoints da API**  
