@@ -25,7 +25,7 @@ Acesse o Repositorio: [YKMINIURL Repositorio Frontend](https://github.com/Dannic
 
 ## ✒ O UI/UX do YKMiniURL foi criado no **Figma**, utilizando **Auto Layout**.
 
-Confira o design do projeto no Figma: [Figma do YKMiniURL](https://www.figma.com/)
+Confira o design do projeto no Figma: [Figma do YKMiniURL](https://www.figma.com/design/ABmbwn4qIWOZ4N7diKZ7Wg/ykminiurl?node-id=0-1&t=9TjP9yKKKc1IAmgd-1)
 
 ### 🛠️ **Tecnologias Utilizadas**  
 
