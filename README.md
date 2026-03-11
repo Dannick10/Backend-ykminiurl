@@ -35,15 +35,6 @@ https://github.com/Dannick10/frontend-ykminiurl
 
 ---
 
-## 🎨 Design
-
-O UI/UX do projeto foi criado utilizando **Figma** com **Auto Layout**.
-
-🔗 Protótipo no Figma
-https://www.figma.com/design/ABmbwn4qIWOZ4N7diKZ7Wg/ykminiurl
-
----
-
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
